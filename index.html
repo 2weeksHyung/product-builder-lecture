@@ -257,6 +257,32 @@
 
       .honeypot { display: none; }
 
+      .comments {
+        border-top: 1px solid var(--divider);
+        margin-top: 28px;
+        padding-top: 24px;
+      }
+
+      .comments h2 {
+        margin: 0 0 6px;
+        font-size: 1.3rem;
+      }
+
+      .comments-description {
+        margin: 0 0 20px;
+        color: var(--muted);
+      }
+
+      .comments noscript {
+        display: block;
+        border-radius: 12px;
+        background: var(--surface);
+        color: var(--muted);
+        padding: 14px;
+      }
+
+      .comments noscript a { color: var(--accent); }
+
       @media (max-width: 640px) {
         .app { padding: 20px; }
         .header { align-items: center; }
@@ -357,6 +383,31 @@
             <span class="form-note">입력하신 정보는 문의 답변을 위해서만 사용됩니다.</span>
           </div>
         </form>
+      </section>
+
+      <section class="comments" aria-labelledby="commentsTitle">
+        <h2 id="commentsTitle">💬 댓글</h2>
+        <p class="comments-description">로또 번호와 사이트에 대한 이야기를 자유롭게 나눠보세요.</p>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = 'https://2weekshyung.github.io/product-builder-lecture/';
+            this.page.identifier = 'product-builder-lecture-home';
+          };
+
+          (function () {
+            var d = document;
+            var s = d.createElement('script');
+            s.src = 'https://productbuilder-c1mpsdqbtb.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>
+          댓글을 보려면 JavaScript를 활성화해 주세요.
+          <a href="https://disqus.com/?ref_noscript">Disqus 댓글 보기</a>
+        </noscript>
       </section>
     </div>
 
