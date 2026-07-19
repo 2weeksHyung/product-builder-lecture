@@ -173,11 +173,96 @@
         font-weight: 600;
       }
 
+      .contact {
+        border-top: 1px solid var(--divider);
+        margin-top: 24px;
+        padding-top: 24px;
+      }
+
+      .contact h2 {
+        margin: 0 0 6px;
+        font-size: 1.3rem;
+      }
+
+      .contact-description {
+        margin: 0 0 18px;
+        color: var(--muted);
+      }
+
+      .contact-form {
+        display: grid;
+        gap: 16px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .form-field {
+        display: grid;
+        gap: 7px;
+      }
+
+      .form-field label {
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      .form-field input,
+      .form-field textarea {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--surface);
+        color: var(--text);
+        padding: 12px 14px;
+        font: inherit;
+      }
+
+      .form-field textarea {
+        min-height: 130px;
+        resize: vertical;
+      }
+
+      .form-field input::placeholder,
+      .form-field textarea::placeholder {
+        color: var(--muted);
+      }
+
+      .form-field input:focus,
+      .form-field textarea:focus {
+        border-color: var(--accent);
+        outline: 3px solid rgba(245, 158, 11, 0.2);
+      }
+
+      .form-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .submit-btn {
+        background: linear-gradient(135deg, var(--accent), #fbbf24);
+        color: #111827;
+        box-shadow: 0 10px 20px rgba(245, 158, 11, 0.2);
+      }
+
+      .form-note {
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .honeypot { display: none; }
+
       @media (max-width: 640px) {
         .app { padding: 20px; }
         .header { align-items: center; }
         .theme-toggle { min-width: auto; padding: 10px 14px; }
         .result-box { grid-template-columns: repeat(3, 1fr); }
+        .form-row { grid-template-columns: 1fr; }
       }
     </style>
     <script>
@@ -220,6 +305,59 @@
         <h2>최근 추첨 기록</h2>
         <ul id="historyList"></ul>
       </div>
+
+      <section class="contact" aria-labelledby="contactTitle">
+        <h2 id="contactTitle">🤝 제휴문의</h2>
+        <p class="contact-description">함께하고 싶은 제안이 있다면 아래 내용을 남겨주세요.</p>
+
+        <form class="contact-form" action="https://formspree.io/f/xrenqrrw" method="POST">
+          <input type="hidden" name="_subject" value="로또 추첨 사이트 제휴문의" />
+          <div class="honeypot" aria-hidden="true">
+            <label for="website">웹사이트</label>
+            <input id="website" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="partnerName">회사명 / 이름</label>
+              <input
+                id="partnerName"
+                name="name"
+                type="text"
+                placeholder="회사명 또는 담당자명"
+                autocomplete="organization"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label for="partnerEmail">이메일</label>
+              <input
+                id="partnerEmail"
+                name="email"
+                type="email"
+                placeholder="contact@example.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="partnerMessage">문의 내용</label>
+            <textarea
+              id="partnerMessage"
+              name="message"
+              placeholder="제휴 목적과 제안 내용을 간단히 알려주세요."
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button class="submit-btn" type="submit">문의 보내기</button>
+            <span class="form-note">입력하신 정보는 문의 답변을 위해서만 사용됩니다.</span>
+          </div>
+        </form>
+      </section>
     </div>
 
     <script>
