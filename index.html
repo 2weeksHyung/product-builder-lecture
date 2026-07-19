@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-adsense-account" content="ca-pub-9780960074157515" />
-    <title>로또 추첨 사이트</title>
+    <meta name="description" content="로또 6/45 무작위 번호 생성기와 당첨 확률, 번호 선택 원리, 건전한 이용 방법을 한곳에서 확인하세요." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://2weekshyung.github.io/product-builder-lecture/" />
+    <title>로또 번호 생성기 | 6/45 확률과 이용 가이드</title>
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9780960074157515"
@@ -49,18 +52,119 @@
         color: var(--text);
         min-height: 100vh;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
         padding: 24px;
       }
       .app {
-        width: min(900px, 100%);
+        width: min(1040px, 100%);
         background: var(--card);
         border: 1px solid var(--border);
         border-radius: 24px;
         box-shadow: 0 20px 60px var(--shadow);
         padding: 32px;
       }
+
+      html { scroll-behavior: smooth; }
+      a { color: inherit; }
+
+      .skip-link {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 10;
+        transform: translateY(-150%);
+        border-radius: 8px;
+        background: var(--accent);
+        color: #111827;
+        padding: 10px 14px;
+        font-weight: 800;
+      }
+
+      .skip-link:focus { transform: translateY(0); }
+
+      .site-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-bottom: 1px solid var(--divider);
+        margin-bottom: 30px;
+        padding-bottom: 18px;
+      }
+
+      .brand { font-weight: 900; text-decoration: none; }
+      .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+      .nav-links a {
+        border-radius: 999px;
+        color: var(--muted);
+        padding: 8px 11px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+      .nav-links a:hover, .nav-links a:focus-visible {
+        background: var(--surface);
+        color: var(--text);
+      }
+
+      .content-section {
+        border-top: 1px solid var(--divider);
+        margin-top: 32px;
+        padding-top: 30px;
+        scroll-margin-top: 20px;
+      }
+
+      .section-heading { max-width: 720px; margin-bottom: 20px; }
+      .section-heading h2 { margin: 0 0 8px; font-size: 1.55rem; }
+      .section-heading p { margin: 0; color: var(--muted); line-height: 1.7; }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .info-card {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--surface);
+        padding: 20px;
+      }
+
+      .info-card h3 { margin: 0 0 10px; font-size: 1.05rem; }
+      .info-card p { margin: 0; color: var(--muted); line-height: 1.75; }
+      .highlight { color: var(--accent); font-size: 1.35rem; font-weight: 900; }
+
+      .guide-list { margin: 0; padding-left: 22px; }
+      .guide-list li { margin-bottom: 14px; padding-left: 6px; line-height: 1.75; }
+      .guide-list strong { display: block; margin-bottom: 2px; }
+
+      .notice {
+        border-left: 4px solid var(--accent);
+        border-radius: 0 14px 14px 0;
+        background: var(--surface);
+        margin-top: 20px;
+        padding: 16px 18px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .faq-list { display: grid; gap: 10px; }
+      .faq-list details { border: 1px solid var(--border); border-radius: 14px; background: var(--surface); padding: 15px 17px; }
+      .faq-list summary { cursor: pointer; font-weight: 800; }
+      .faq-list p { margin: 12px 0 0; color: var(--muted); line-height: 1.75; }
+
+      .site-footer {
+        border-top: 1px solid var(--divider);
+        margin-top: 32px;
+        padding-top: 22px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        line-height: 1.7;
+      }
+      .footer-links { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
+      .footer-links a { color: var(--text); font-weight: 700; }
 
       .header {
         display: flex;
@@ -291,10 +395,12 @@
 
       @media (max-width: 640px) {
         .app { padding: 20px; }
+        .site-nav { align-items: flex-start; flex-direction: column; }
         .header { align-items: center; }
         .theme-toggle { min-width: auto; padding: 10px 14px; }
         .result-box { grid-template-columns: repeat(3, 1fr); }
         .form-row { grid-template-columns: 1fr; }
+        .info-grid { grid-template-columns: 1fr; }
       }
     </style>
     <script>
@@ -308,11 +414,25 @@
     </script>
   </head>
   <body>
+    <a class="skip-link" href="#mainContent">본문 바로가기</a>
     <div class="app">
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <a class="brand" href="#generator">🎲 행운번호 연구소</a>
+        <div class="nav-links">
+          <a href="#generator">번호 생성</a>
+          <a href="#probability">당첨 확률</a>
+          <a href="#guide">이용 가이드</a>
+          <a href="#faq">자주 묻는 질문</a>
+          <a href="#contactTitle">문의</a>
+        </div>
+      </nav>
+
+      <main id="mainContent">
+      <section id="generator" aria-labelledby="pageTitle">
       <div class="header">
         <div>
-          <h1>🎲 로또 추첨 사이트</h1>
-          <p class="subtitle">행운의 번호를 뽑아보세요. 오늘의 추첨 결과를 확인해보세요.</p>
+          <h1 id="pageTitle">로또 6/45 번호 생성기</h1>
+          <p class="subtitle">편견 없이 여섯 번호를 무작위로 만들고, 추첨 확률과 올바른 이용 방법도 함께 확인하세요.</p>
         </div>
         <button id="themeToggle" class="theme-toggle" type="button" aria-label="라이트 모드로 전환">
           ☀️ 라이트
@@ -337,6 +457,67 @@
         <h2>최근 추첨 기록</h2>
         <ul id="historyList"></ul>
       </div>
+      <p class="notice"><strong>알아두세요.</strong> 이 도구는 브라우저의 난수를 이용한 오락용 번호 생성기입니다. 당첨을 예측하거나 보장하지 않으며, 공식 복권 판매·추첨 서비스와 관련이 없습니다.</p>
+      </section>
+
+      <section id="probability" class="content-section" aria-labelledby="probabilityTitle">
+        <div class="section-heading">
+          <h2 id="probabilityTitle">로또 6/45 당첨 확률 이해하기</h2>
+          <p>로또는 1부터 45까지 중 서로 다른 6개 번호를 고르는 조합 게임입니다. 번호의 순서는 당첨 여부에 영향을 주지 않으며 모든 유효한 조합은 같은 확률을 가집니다.</p>
+        </div>
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>전체 조합 수</h3>
+            <p><span class="highlight">8,145,060개</span><br />45개 중 6개를 순서 없이 선택하는 조합의 수입니다. 특정 조합이 1등 번호와 일치할 가능성은 이 가운데 하나입니다.</p>
+          </article>
+          <article class="info-card">
+            <h3>모든 번호는 동등</h3>
+            <p>최근 자주 나온 번호나 오랫동안 나오지 않은 번호도 다음 회차의 개별 추첨 확률은 같습니다. 이전 결과가 다음 무작위 추첨을 바꾸지는 않습니다.</p>
+          </article>
+          <article class="info-card">
+            <h3>무작위 선택의 장점</h3>
+            <p>생일이나 연속수처럼 익숙한 패턴에 치우치는 선택 편향을 줄일 수 있습니다. 다만 무작위 선택도 당첨 가능성 자체를 높이지는 않습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="guide" class="content-section" aria-labelledby="guideTitle">
+        <div class="section-heading">
+          <h2 id="guideTitle">번호 생성기를 현명하게 사용하는 방법</h2>
+          <p>복권은 결과를 통제할 수 없는 확률형 오락입니다. 재미는 유지하면서 과도한 기대나 지출을 피하는 기준을 세워두는 것이 중요합니다.</p>
+        </div>
+        <ol class="guide-list">
+          <li><strong>먼저 예산을 정하세요.</strong> 생활비와 저축을 제외한 여가비 안에서 감당할 수 있는 금액만 사용하고, 잃은 금액을 되찾기 위해 추가 구매하지 마세요.</li>
+          <li><strong>각 결과를 독립적으로 보세요.</strong> 과거 당첨 번호, 꿈, 통계 패턴은 다음 추첨 결과를 확정하지 않습니다. 생성된 번호 역시 추천이나 예측이 아닌 하나의 무작위 조합입니다.</li>
+          <li><strong>구매 전 번호를 다시 확인하세요.</strong> 이 사이트는 번호 아이디어만 제공합니다. 실제 구매 가능 시간, 연령 제한, 당첨 확인과 수령 방법은 공식 복권 안내를 기준으로 확인해야 합니다.</li>
+          <li><strong>기록은 현재 방문 중에만 유지됩니다.</strong> 최근 추첨 기록은 서버에 저장되지 않으며 페이지를 새로고침하면 사라집니다. 개인정보 없이 가볍게 비교하기 위한 기능입니다.</li>
+        </ol>
+      </section>
+
+      <section id="faq" class="content-section" aria-labelledby="faqTitle">
+        <div class="section-heading">
+          <h2 id="faqTitle">자주 묻는 질문</h2>
+          <p>번호 생성 방식과 개인정보 처리에 관해 자주 궁금해하는 내용을 정리했습니다.</p>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>번호는 어떻게 만들어지나요?</summary>
+            <p>브라우저의 JavaScript 난수를 이용해 1부터 45까지의 숫자를 중복 없이 여섯 개 선택한 뒤 오름차순으로 보여줍니다. 생성 과정에 과거 당첨 데이터나 개인 정보는 사용하지 않습니다.</p>
+          </details>
+          <details>
+            <summary>생성된 번호가 당첨 가능성을 높여주나요?</summary>
+            <p>아닙니다. 모든 유효한 6개 번호 조합의 1등 당첨 확률은 동일합니다. 이 기능은 사람이 특정 범위나 모양에 치우치지 않고 번호를 선택하도록 돕는 편의 도구입니다.</p>
+          </details>
+          <details>
+            <summary>보너스 번호가 기본 번호와 같을 수 있나요?</summary>
+            <p>화면의 보너스 표시는 결과 비교의 재미를 위한 별도 무작위 값입니다. 공식 추첨을 재현하는 기능이 아니므로 실제 복권 결과나 구매 번호로 해석해서는 안 됩니다.</p>
+          </details>
+          <details>
+            <summary>입력하거나 생성한 정보가 서버에 저장되나요?</summary>
+            <p>생성 번호와 기록은 현재 브라우저 메모리에만 잠시 유지됩니다. 테마 선택은 브라우저 저장소에 보관되며, 제휴문의는 사용자가 제출할 때 Formspree를 통해 전달됩니다. 자세한 내용은 개인정보처리방침에서 확인할 수 있습니다.</p>
+          </details>
+        </div>
+      </section>
 
       <section class="contact" aria-labelledby="contactTitle">
         <h2 id="contactTitle">🤝 제휴문의</h2>
@@ -415,6 +596,17 @@
           <a href="https://disqus.com/?ref_noscript">Disqus 댓글 보기</a>
         </noscript>
       </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-links">
+          <a href="about.html">사이트 소개</a>
+          <a href="privacy.html">개인정보처리방침</a>
+          <a href="terms.html">이용약관</a>
+          <a href="#contactTitle">제휴문의</a>
+        </div>
+        <div>© 2026 행운번호 연구소. 본 사이트는 오락 및 정보 제공 목적이며 당첨이나 수익을 보장하지 않습니다.</div>
+      </footer>
     </div>
 
     <script>
@@ -449,7 +641,10 @@
         }
 
         const sortedNumbers = [...numbers].sort((a, b) => a - b);
-        const bonus = Math.floor(Math.random() * 45) + 1;
+        let bonus;
+        do {
+          bonus = Math.floor(Math.random() * 45) + 1;
+        } while (numbers.has(bonus));
         const finalNumbers = [...sortedNumbers];
 
         resultArea.innerHTML = '';
