@@ -6,19 +6,40 @@
     <title>로또 추첨 사이트</title>
     <style>
       :root {
-        --bg: #0f172a;
-        --card: #111827;
+        color-scheme: dark;
+        --bg-start: #111827;
+        --bg-end: #1f2937;
+        --card: rgba(17, 24, 39, 0.95);
         --text: #f9fafb;
         --muted: #9ca3af;
         --accent: #f59e0b;
         --accent-2: #ef4444;
+        --border: rgba(255,255,255,0.08);
+        --divider: rgba(255,255,255,0.1);
+        --surface: rgba(255,255,255,0.04);
+        --secondary: #374151;
+        --shadow: rgba(0,0,0,0.35);
+      }
+
+      :root[data-theme="light"] {
+        color-scheme: light;
+        --bg-start: #fef3c7;
+        --bg-end: #e0f2fe;
+        --card: rgba(255, 255, 255, 0.94);
+        --text: #111827;
+        --muted: #64748b;
+        --border: rgba(15, 23, 42, 0.1);
+        --divider: rgba(15, 23, 42, 0.1);
+        --surface: rgba(15, 23, 42, 0.045);
+        --secondary: #e5e7eb;
+        --shadow: rgba(15, 23, 42, 0.18);
       }
 
       * { box-sizing: border-box; }
       body {
         margin: 0;
         font-family: "Pretendard", "Segoe UI", sans-serif;
-        background: linear-gradient(135deg, #111827, #1f2937);
+        background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
         color: var(--text);
         min-height: 100vh;
         display: flex;
@@ -28,11 +49,18 @@
       }
       .app {
         width: min(900px, 100%);
-        background: rgba(17, 24, 39, 0.95);
-        border: 1px solid rgba(255,255,255,0.08);
+        background: var(--card);
+        border: 1px solid var(--border);
         border-radius: 24px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+        box-shadow: 0 20px 60px var(--shadow);
         padding: 32px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
       }
 
       h1 {
@@ -64,6 +92,18 @@
       }
 
       button:hover { transform: translateY(-2px); }
+      button:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
+      }
+
+      .theme-toggle {
+        flex: 0 0 auto;
+        min-width: 118px;
+        background: var(--secondary);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
 
       .draw-btn {
         background: linear-gradient(135deg, var(--accent), #fbbf24);
@@ -72,7 +112,7 @@
       }
 
       .reset-btn {
-        background: #374151;
+        background: var(--secondary);
         color: var(--text);
       }
 
@@ -101,7 +141,7 @@
       }
 
       .history {
-        border-top: 1px solid rgba(255,255,255,0.1);
+        border-top: 1px solid var(--divider);
         padding-top: 20px;
       }
 
@@ -122,7 +162,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: rgba(255,255,255,0.04);
+        background: var(--surface);
         border-radius: 14px;
         padding: 10px 14px;
         color: var(--muted);
@@ -135,14 +175,32 @@
 
       @media (max-width: 640px) {
         .app { padding: 20px; }
+        .header { align-items: center; }
+        .theme-toggle { min-width: auto; padding: 10px 14px; }
         .result-box { grid-template-columns: repeat(3, 1fr); }
       }
     </style>
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: light)').matches
+          ? 'light'
+          : 'dark';
+        document.documentElement.dataset.theme = savedTheme || systemTheme;
+      })();
+    </script>
   </head>
   <body>
     <div class="app">
-      <h1>🎲 로또 추첨 사이트</h1>
-      <p class="subtitle">행운의 번호를 뽑아보세요. 오늘의 추첨 결과를 확인해보세요.</p>
+      <div class="header">
+        <div>
+          <h1>🎲 로또 추첨 사이트</h1>
+          <p class="subtitle">행운의 번호를 뽑아보세요. 오늘의 추첨 결과를 확인해보세요.</p>
+        </div>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="라이트 모드로 전환">
+          ☀️ 라이트
+        </button>
+      </div>
 
       <div class="button-wrap">
         <button class="draw-btn" onclick="drawLotto()">번호 뽑기</button>
@@ -167,7 +225,27 @@
     <script>
       const historyList = document.getElementById('historyList');
       const resultArea = document.getElementById('resultArea');
+      const themeToggle = document.getElementById('themeToggle');
       const history = [];
+
+      function updateThemeButton() {
+        const isDark = document.documentElement.dataset.theme === 'dark';
+        themeToggle.textContent = isDark ? '☀️ 라이트' : '🌙 다크';
+        themeToggle.setAttribute(
+          'aria-label',
+          isDark ? '라이트 모드로 전환' : '다크 모드로 전환'
+        );
+      }
+
+      function toggleTheme() {
+        const currentTheme = document.documentElement.dataset.theme;
+        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = nextTheme;
+        localStorage.setItem('theme', nextTheme);
+        updateThemeButton();
+      }
+
+      themeToggle.addEventListener('click', toggleTheme);
 
       function drawLotto() {
         const numbers = new Set();
@@ -219,6 +297,7 @@
         renderHistory();
       }
 
+      updateThemeButton();
       renderHistory();
     </script>
   </body>
